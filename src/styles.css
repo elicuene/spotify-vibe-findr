@@ -5,3 +5,10 @@ body {
 .displayed-track {
     margin: 10px;
 }
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    border-style: solid;
+}

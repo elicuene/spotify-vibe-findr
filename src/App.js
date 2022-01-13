@@ -44,15 +44,13 @@ export default function App() {
   }
 
   const tracksElements = tracks.map(track => {
+    
+    console.log("rendered")
+    
     return (
-      <div className="displayed-track" key={track.id}>{track.name} by {track.artists[0].name}</div>
+      <button className="displayed-track" key={track.id} onClick={() => setSelectedTrackID(track.id)}> {track.name} by {track.artists[0].name}</button>
     )
-
   })
-
-  // function selectTrack(e) {
-  //   setSelectedTrackID(e.target.value)
-  // }
 
   function logout() {
     setToken("")
@@ -72,7 +70,10 @@ export default function App() {
         <input type="submit" />
       </form>}
       {token && <button onClick={logout}>Log Out</button>}
-      {token && tracksElements}
+      <div className="search-container"> 
+        {!selectedTrackID && token && tracksElements}
+      </div>
+      {selectedTrackID  && <p>{selectedTrackID}</p>}
     </div>
   );
 }
