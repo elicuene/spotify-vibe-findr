@@ -14,6 +14,7 @@ export default function App() {
   const [searchKey, setSearchKey] = useState("")
   const [tracks, setTracks] = useState([])
   const [selectedTrackID, setSelectedTrackID] = useState("")
+  const [trackDetails, setTrackDetails] = useState([])
   
   useEffect(() => {
     const hash = window.location.hash
@@ -45,12 +46,25 @@ export default function App() {
 
   const tracksElements = tracks.map(track => {
     
-    console.log("rendered")
-    
     return (
       <button className="displayed-track" key={track.id} onClick={() => setSelectedTrackID(track.id)}> {track.name} by {track.artists[0].name}</button>
     )
   })
+
+  const getDetails = async (e) => {
+    e.preventDefault()
+    const response = await axios.get(`https://api.spotify.com/v1/audio-features/${selectedTrackID}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).catch(e => {
+      console.log(e)
+    })
+    setTrackDetails(response)
+    if (trackDetails) {
+      console.log(trackDetails.data.energy)
+    }
+  }
 
   function logout() {
     setToken("")
@@ -73,7 +87,9 @@ export default function App() {
       <div className="search-container"> 
         {!selectedTrackID && token && tracksElements}
       </div>
-      {selectedTrackID  && <p>{selectedTrackID}</p>}
+      <div onClick={getDetails}>
+        {selectedTrackID && trackDetails  && <p>{selectedTrackID}</p>}
+      </div>
     </div>
   );
 }
