@@ -60,10 +60,21 @@ export default function App() {
     }).catch(e => {
       console.log(e)
     })
-    setTrackDetails(response)
-    if (trackDetails) {
-      console.log(trackDetails.data.energy)
-    }
+    setTrackDetails(response.data)
+    
+  }
+
+  function displayData() {
+    return (
+      <div>
+        <p>Energy: {trackDetails.energy}</p>
+        <p>Acousticness: {trackDetails.acousticness}</p>
+        <p>Liveness: {trackDetails.liveness}</p>
+        <p>Danceability: {trackDetails.danceability}</p>
+        <p>Speechiness: {trackDetails.speechiness}</p>
+        <p>Valence: {trackDetails.valence}</p>
+      </div>
+    )
   }
 
   function logout() {
@@ -87,9 +98,10 @@ export default function App() {
       <div className="search-container"> 
         {!selectedTrackID && token && tracksElements}
       </div>
-      <div onClick={getDetails}>
-        {selectedTrackID && trackDetails  && <p>{selectedTrackID}</p>}
+      <div >
+        {selectedTrackID && <button onClick={getDetails}>Get Details</button>}
       </div>
+      {trackDetails && displayData()}
     </div>
   );
 }
