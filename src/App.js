@@ -47,7 +47,7 @@ export default function App() {
   const tracksElements = tracks.map(track => {
     
     return (
-      <button className="displayed-track" key={track.id} onClick={() => setSelectedTrackID(track.id)}> {track.name} by {track.artists[0].name}</button>
+      <button className="displayed-track" key={track.id} onClick={() => {setSelectedTrackID(track.id); getDetails(); displayData()}}> {track.name} by {track.artists[0].name}</button>
     )
   })
 
@@ -62,6 +62,7 @@ export default function App() {
     })
     setTrackDetails(response.data)
     
+    
   }
 
   function displayData() {
@@ -73,8 +74,16 @@ export default function App() {
         <p>Danceability: {trackDetails.danceability}</p>
         <p>Speechiness: {trackDetails.speechiness}</p>
         <p>Valence: {trackDetails.valence}</p>
+         <button onClick={newSong}>Find A New Vibe</button>
       </div>
     )
+  }
+
+  function newSong() {
+    setSearchKey("")
+    setTracks([])
+    setSelectedTrackID("")
+    setTrackDetails([])
   }
 
   function logout() {
@@ -82,9 +91,10 @@ export default function App() {
     window.localStorage.removeItem("token")
   }
 
+
   return (
-    <div className="App">
-      {!token ? <a href={`${authEndpoint}?client_id=${clientID}&redirect_uri=${redirectURI}&response_type=${responseType}`}>Login to Spotify</a> : "Logged in!"}
+    <div className="content">
+      {!token ? <a href={`${authEndpoint}?client_id=${clientID}&redirect_uri=${redirectURI}&response_type=${responseType}`}>Login to Spotify</a> : <button onClick={logout}>Log Out</button>}
       {token && <form onSubmit={searchTracks}>
         <label>Search Songs:
           <input type="text"
@@ -94,14 +104,14 @@ export default function App() {
         </label>
         <input type="submit" />
       </form>}
-      {token && <button onClick={logout}>Log Out</button>}
+
       <div className="search-container"> 
         {!selectedTrackID && token && tracksElements}
       </div>
       <div >
-        {selectedTrackID && <button onClick={getDetails}>Get Details</button>}
+        {(selectedTrackID && !trackDetails.energy) && <button onClick={getDetails}>Get Track Vibes</button>}
       </div>
-      {trackDetails && displayData()}
+      {trackDetails.energy && displayData()}
     </div>
   );
 }
