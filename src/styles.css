@@ -1,15 +1,27 @@
 
-
+* {
+    font-family: "Montserrat", sans-serif;
+}
 body {
-  border-style: solid;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   max-width: 50%;
   margin:  50px auto 50px auto;
+  background-color: #191414;
+  
+  
 
   
+}
+
+button {
+    color: white;
+    background-color: #1ed760;
+    border-radius: 10px;
+    border-style: none;
+    padding: 5px;
 }
 
 .content {
@@ -18,15 +30,44 @@ body {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin: 10px 0 0 0;
+    margin: 10px 0 10px 0;
+    background-color: #191414;
+    color: white;
 }
 
 .displayed-track {
     margin: 10px;
+    height: 30px;
+    border-radius: 50px;
 }
 
 .search-container {
     display: flex;
     flex-direction: column;
     width: 500px;
+}
+
+.searchbar {
+    display: flex;
+    gap: 10px;
+}
+
+.searchbar-label {
+    display: flex;
+    gap: 10px;
+}
+
+input[type="submit"] {
+    color: white;
+    background-color: #1ed760;
+    border-radius: 10px;
+    border-style: none;
+    padding: 5px;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

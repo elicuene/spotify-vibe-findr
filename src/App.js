@@ -67,7 +67,7 @@ export default function App() {
 
   function displayData() {
     return (
-      <div>
+      <div className="stats">
         <p>Energy: {trackDetails.energy}</p>
         <p>Acousticness: {trackDetails.acousticness}</p>
         <p>Liveness: {trackDetails.liveness}</p>
@@ -95,14 +95,14 @@ export default function App() {
   return (
     <div className="content">
       {!token ? <a href={`${authEndpoint}?client_id=${clientID}&redirect_uri=${redirectURI}&response_type=${responseType}`}>Login to Spotify</a> : <button onClick={logout}>Log Out</button>}
-      {token && <form onSubmit={searchTracks}>
-        <label>Search Songs:
+      {token && <form className="searchbar" onSubmit={searchTracks}>
+        <label className="searchbar-label">Search Songs:
           <input type="text"
                 value={searchKey}
                 onChange={(e) => setSearchKey(e.target.value)}
           />
         </label>
-        <input type="submit" />
+        <input type="submit" value="Search Songs" />
       </form>}
 
       <div className="search-container"> 
